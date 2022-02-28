@@ -64,9 +64,12 @@ class LoginBottomSheet extends StatelessWidget {
                   height: MAIN_MARGIN,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false);
+                  },
                   child: const Text(
-                    "تسجيل",
+                    "تسجيل الدخول",
                   ),
                 ),
               ],
