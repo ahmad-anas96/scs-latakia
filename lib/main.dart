@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
-import 'package:scs_latakia_app/auth/views/auth_screen.dart';
-import 'package:scs_latakia_app/const.dart';
+import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
+import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
-import 'package:scs_latakia_app/home/views/home_screen.dart';
 import 'package:scs_latakia_app/l10n/l10n.dart';
 import 'package:scs_latakia_app/splash/splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scs_latakia_app/utils/locale_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -44,11 +44,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => CoursesViewModel()),
+        ChangeNotifierProvider(create: (_) => CourseDetailsProvider())
       ],
       builder: (context, child) {
         var locale = Provider.of<LocaleProvider>(context);
@@ -60,6 +62,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          debugShowCheckedModeBanner: false,
           locale: locale.locale,
           supportedLocales: L10n.all,
           theme: ThemeData(
@@ -74,8 +77,16 @@ class MyApp extends StatelessWidget {
                 fontSize: 18.0,
                 color: Colors.black.withOpacity(0.9),
               ),
+              headline4: TextStyle(
+                fontSize: 15.0,
+                fontFamily: 'NextAr',
+                color: mainscs.shade500,
+                fontWeight: FontWeight.w600,
+                height: 1.3,
+              ),
               bodyText2: TextStyle(
-                fontSize: 15,
+                fontSize: 15.0,
+                height: 1.2,
                 color: Colors.grey.shade600,
               ),
               button: const TextStyle(
@@ -92,14 +103,27 @@ class MyApp extends StatelessWidget {
                 minimumSize: const Size.fromHeight(50),
                 primary: mainscs.shade500,
                 onPrimary: Colors.white,
+                textStyle: const TextStyle(
+                  fontSize: 16.0,
+                  fontFamily: 'NextAr',
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
+            textButtonTheme: TextButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                textStyle: const TextStyle(
+                  fontSize: 16.0,
+                  fontFamily: 'NextAr',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            
           ),
           initialRoute: '/',
           routes: {
-            '/': (_) => SplashScreen(),
-            '/home': (_) => HomeScreen(),
-            '/auth': (_) => AuthScreen(),
+            '/': (_) => const SplashScreen(),
           },
         );
       },

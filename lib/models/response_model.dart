@@ -1,13 +1,13 @@
 class ResponseModel {
-  var statusCode;
-  var data;
-  var error;
-  var message;
+  final int statusCode;
+  final dynamic data;
+  final dynamic error;
+  final String message;
 
   ResponseModel({
-    this.statusCode,
+    required this.statusCode,
     this.data,
     this.error,
-    this.message,
+    required this.message,
   });
 }

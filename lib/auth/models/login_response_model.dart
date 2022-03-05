@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:scs_latakia_app/auth/models/user_model.dart';
 import 'package:scs_latakia_app/utils/api_response.dart';
 
 class LoginResponseModel extends ApiResponse {
@@ -41,7 +42,8 @@ class LoginData {
   UserModel user;
   String accessToken;
 
-  factory LoginData.fromRawJson(String str) => LoginData.fromJson(json.decode(str));
+  factory LoginData.fromRawJson(String str) =>
+      LoginData.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
@@ -53,41 +55,5 @@ class LoginData {
   Map<String, dynamic> toJson() => {
         "user": user.toJson(),
         "accessToken": accessToken,
-      };
-}
-
-class UserModel {
-  UserModel({
-    required this.id,
-    required this.username,
-    required this.role,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  String id;
-  String username;
-  String role;
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  factory UserModel.fromRawJson(String str) => UserModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        id: json["id"],
-        username: json["username"],
-        role: json["role"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "username": username,
-        "role": role,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
       };
 }

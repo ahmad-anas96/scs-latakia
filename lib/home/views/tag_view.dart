@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scs_latakia_app/const.dart';
+import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 
 class TagView extends StatelessWidget {
@@ -14,9 +14,7 @@ class TagView extends StatelessWidget {
     bool _isSelected = coursesViewModel?.isTagSelected(tag) ?? false;
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: MAIN_MARGIN / 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: MAIN_MARGIN / 4),
       child: ChoiceChip(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(MAIN_RADIUS)),
@@ -33,11 +31,8 @@ class TagView extends StatelessWidget {
         selected: _isSelected,
         selectedColor: Theme.of(context).colorScheme.secondaryVariant,
         backgroundColor: Colors.grey,
-        onSelected: (value) {
-          if (value) {
-            coursesViewModel?.selectedTag = tag;
-          }
-        },
+        onSelected: (value) =>
+            coursesViewModel?.selectedTag = value ? tag : null,
         elevation: 1,
         padding: const EdgeInsets.symmetric(horizontal: MAIN_MARGIN / 2),
       ),

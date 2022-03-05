@@ -1,9 +1,17 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
+import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 
 const MAIN_MARGIN = 25.0;
 const MAIN_RADIUS = 10.0;
-const ROOT = "http://scs-latakia.atconcept.tech";
+const ROOT = "https://scs-latakia.atconcept.tech";
 const ROOT_API = "$ROOT/api";
+const ROOT_UPLOADS = "$ROOT/uploads";
+
+Map<String, String>? getHeaders() => {
+      'Authorization': 'Bearer ${AuthProvider.loginData?.accessToken}',
+    };
 
 const INPUT_DECORATION = InputDecoration(
   filled: true,
@@ -13,12 +21,6 @@ const INPUT_DECORATION = InputDecoration(
       Radius.circular(MAIN_RADIUS),
     ),
   ),
-  // focusedBorder: UnderlineInputBorder(
-  //   borderSide: BorderSide(color: MyApp.mainscsAccent),
-  // ),
-  // enabledBorder: UnderlineInputBorder(
-  //   borderSide: BorderSide(color: MyApp.mainscsAccent),
-  // ),
   contentPadding: EdgeInsets.only(
     left: 5,
     right: 5,

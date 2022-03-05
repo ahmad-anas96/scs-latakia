@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scs_latakia_app/const.dart';
-import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 import 'package:scs_latakia_app/home/views/courses_list_view.dart';
+import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 import 'package:scs_latakia_app/home/views/tags_list_view.dart';
+import 'package:scs_latakia_app/more/views/more.dart';
+import 'package:scs_latakia_app/my_courses/views/my_courses.dart';
+import 'package:scs_latakia_app/profile/views/profile.dart';
+import 'package:scs_latakia_app/utils/const.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,55 +16,112 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
   var top = 0.0;
+  final _pages = const <Widget>[
+    CoursesListView(),
+    ProfilePageWidget(),
+    MyCoursesPageWidget(),
+    MorePageWidget(),
+  ];
+
+  String get title {
+    switch (_currentIndex) {
+      case 0:
+        return "Syrian Computer Society - Latakia";
+      case 1:
+        return "Profile";
+      case 2:
+        return "My courses";
+      case 3:
+        return "More";
+      default:
+        return "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  expandedHeight: 150.0,
-                  floating: false,
-                  pinned: true,
-                  flexibleSpace: LayoutBuilder(builder: (context, constraints) {
-                    top = constraints.biggest.height;
-                    return FlexibleSpaceBar(
-                      centerTitle: true,
-                      title: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 300),
-                        opacity: top ==
-                                MediaQuery.of(context).padding.top +
-                                    kToolbarHeight
-                            ? 1.0
-                            : 0.0,
-                        child: Text(
-                          "الجمعية العلمية السورية للمعلوماتية - فرع اللاذقية",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(color: Colors.white),
-                        ),
+    CoursesViewModel? coursesViewModel =
+        Provider.of<CoursesViewModel?>(context);
+
+    return WillPopScope(
+      onWillPop: () async {
+        if (_currentIndex == 0) {
+          return true;
+        }
+        setState(() {
+          _currentIndex = 0;
+        });
+        return false;
+      },
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          selectedItemColor: Theme.of(context).colorScheme.primaryVariant,
+          unselectedItemColor: Colors.grey,
+          onTap: (value) => setState(() {
+            _currentIndex = value;
+          }),
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.school_rounded), label: "My Courses"),
+            BottomNavigationBarItem(icon: Icon(Icons.more_vert), label: "More"),
+          ],
+        ),
+        body: DefaultTabController(
+          length: 2,
+          child: RefreshIndicator(
+            color: Theme.of(context).colorScheme.primaryVariant,
+            onRefresh: () async => await coursesViewModel?.reload(),
+            child: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      expandedHeight: 150.0,
+                      floating: false,
+                      pinned: true,
+                      flexibleSpace:
+                          LayoutBuilder(builder: (context, constraints) {
+                        top = constraints.biggest.height;
+                        return FlexibleSpaceBar(
+                          centerTitle: true,
+                          title: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: top ==
+                                    MediaQuery.of(context).padding.top +
+                                        kToolbarHeight
+                                ? 1.0
+                                : 0.0,
+                            child: Text(
+                              title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                          ),
+                          background: Image.asset(
+                            "assets/images/scs-header.jpg",
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }),
+                    ),
+                    if (_currentIndex == 0)
+                      SliverPersistentHeader(
+                        delegate: _SliverFilterBarDelegate(),
+                        pinned: true,
                       ),
-                      background: Image.asset(
-                        "assets/images/scs-header.jpg",
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  }),
-                ),
-                SliverPersistentHeader(
-                  delegate: _SliverFilterBarDelegate(),
-                  pinned: true,
-                ),
-              ];
-            },
-            body: const CoursesListView()),
+                  ];
+                },
+                body: _pages[_currentIndex]),
+          ),
+        ),
       ),
     );
   }
@@ -79,7 +139,12 @@ class _SliverFilterBarDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    CoursesViewModel? coursesViewModel = Provider.of<CoursesViewModel?>(context);
+    CoursesViewModel? coursesViewModel =
+        Provider.of<CoursesViewModel?>(context);
+
+    if (coursesViewModel?.loading == true) {
+      return Container();
+    }
 
     return Container(
       color: Colors.white,
@@ -96,12 +161,12 @@ class _SliverFilterBarDelegate extends SliverPersistentHeaderDelegate {
               onChanged: (value) => coursesViewModel?.search = value,
               textInputAction: TextInputAction.search,
               decoration: INPUT_DECORATION.copyWith(
-                hintText: 'بحث',
+                hintText: 'Search',
                 prefixIcon: const Icon(Icons.search_rounded),
               ),
             ),
           ),
-          TagsListView(),
+          const TagsListView(),
         ],
       ),
     );
@@ -109,6 +174,6 @@ class _SliverFilterBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(_SliverFilterBarDelegate oldDelegate) {
-    return false;
+    return true;
   }
 }

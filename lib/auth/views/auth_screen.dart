@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scs_latakia_app/auth/views/login_bottom_sheet.dart';
 import 'package:scs_latakia_app/auth/views/register_bottom_sheet.dart';
-import 'package:scs_latakia_app/const.dart';
+import 'package:scs_latakia_app/utils/const.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -43,10 +43,10 @@ class AuthScreen extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       builder: (context) {
-                        return RegisterBottomSheet();
+                        return const RegisterBottomSheet();
                       }),
                   child: Text(
-                    "مستخدم جديد",
+                    "New User",
                     style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),
@@ -58,17 +58,9 @@ class AuthScreen extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       builder: (context) {
-                        return LoginBottomSheet();
+                        return const LoginBottomSheet();
                       }),
-                  child: const Text("تسجيل الدخول"),
-                ),
-                const SizedBox(
-                  height: MAIN_MARGIN,
-                ),
-                InkWell(
-                  child: const Text("الرئيسية"),
-                  onTap: () => Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false),
+                  child: const Text("Login"),
                 ),
               ],
             ),
