@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/models/user_model.dart';
@@ -11,6 +14,7 @@ import 'package:scs_latakia_app/course/views/course_coach_item.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseDetailsScreen extends StatefulWidget {
   const CourseDetailsScreen({Key? key}) : super(key: key);
@@ -69,6 +73,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                         user.email,
                         user.role,
                         user.name,
+                        user.bio,
                         user.linkedin,
                         user.imagePath,
                         user.mobile,
@@ -111,6 +116,17 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
 
   get _details {
     List<String> tags = courseDetailsProvider?.course?.tags.split(',') ?? [];
+    String? certificate;
+    var _users =
+        courseDetailsProvider?.courseDetailsResponseModel?.data.users ?? [];
+
+    for (var user in _users) {
+      if (user.id == myId) {
+        certificate = user.userCourse.certificate;
+        break;
+      }
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,7 +227,18 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
               ),
             ),
           ),
-        )
+        ),
+        if (certificate != null)
+          Container(
+            margin: const EdgeInsets.only(top: MAIN_MARGIN),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                launch("$ROOT/uploads/$certificate");
+              },
+              icon: const Icon(Icons.download_rounded),
+              label: const Text("Download Certificate"),
+            ),
+          ),
       ],
     );
   }

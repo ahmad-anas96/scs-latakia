@@ -57,9 +57,7 @@ class AuthScreen extends StatelessWidget {
                   onPressed: () => showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
-                      builder: (context) {
-                        return const LoginBottomSheet();
-                      }),
+                      builder: (context) => const LoginBottomSheet()),
                   child: const Text("Login"),
                 ),
               ],

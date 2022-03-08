@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/course/models/user_course_details.dart';
 import 'package:scs_latakia_app/course/models/user_session_details.dart';
 import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
 import 'package:scs_latakia_app/course/views/course_user_item.dart';
+import 'package:scs_latakia_app/profile/views/bottom_qrcode_sheet.dart';
 import 'package:scs_latakia_app/utils/const.dart';
+import 'package:scs_latakia_app/utils/snack.dart';
 import 'package:scs_latakia_app/utils/validators.dart';
 
 class UsersSessionList extends StatelessWidget {
@@ -65,34 +69,61 @@ class UsersSessionList extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(
-                Icons.today_rounded,
-                color: Theme.of(context).colorScheme.secondary,
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.today_rounded,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                        const SizedBox(width: MAIN_MARGIN / 2),
+                        Text(
+                          getDate(sessionDetails.dateTime),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w600, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.watch_later_rounded,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                        const SizedBox(width: MAIN_MARGIN / 2),
+                        Text(
+                          getTime(sessionDetails.dateTime),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w600, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(width: MAIN_MARGIN / 2),
-              Text(
-                getDate(sessionDetails.dateTime),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(
-                Icons.watch_later_rounded,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              const SizedBox(width: MAIN_MARGIN / 2),
-              Text(
-                getTime(sessionDetails.dateTime),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-              ),
+              QrCodeScanner(
+                onScanComplete: (qrCode) {
+                  String? qr = qrCode?.code;
+                  if (qr != null) {
+                    int i =
+                        _allStudents.indexWhere((element) => element.id == qr);
+                    if (i == -1) {
+                      showSnackbar(context, "Incorrect QR code");
+                    } else {
+                      UserCourseModel _user = _allStudents[i];
+                      sessionDetails.registerInSession(context, _user);
+                    }
+                  }
+                },
+              )
             ],
           ),
           const Divider(),

@@ -7,6 +7,7 @@ class UserCourseModel extends UserModel {
     String email,
     String role,
     String name,
+    String? bio,
     String? linkedin,
     String? imagePath,
     String mobile,
@@ -16,6 +17,7 @@ class UserCourseModel extends UserModel {
             email: email,
             role: role,
             name: name,
+            bio: bio,
             linkedin: linkedin,
             imagePath: imagePath,
             mobile: mobile);
@@ -28,6 +30,7 @@ class UserCourseModel extends UserModel {
         json["email"],
         json["role"],
         json["name"],
+        json["bio"],
         json["linkedin"],
         json["imagePath"],
         json["mobile"],

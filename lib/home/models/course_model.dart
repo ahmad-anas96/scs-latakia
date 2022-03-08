@@ -4,6 +4,7 @@ class CourseModel {
   CourseModel({
     required this.id,
     required this.title,
+    this.subTitle,
     required this.cost,
     required this.description,
     required this.tags,
@@ -17,6 +18,7 @@ class CourseModel {
 
   String id;
   String title;
+  String? subTitle;
   int cost;
   String description;
   String tags;
@@ -35,6 +37,7 @@ class CourseModel {
   factory CourseModel.fromJson(Map<String, dynamic> json) => CourseModel(
         id: json["id"],
         title: json["title"],
+        subTitle: json["subTitle"],
         cost: json["cost"],
         description: json["description"],
         tags: json["tags"],
@@ -49,6 +52,7 @@ class CourseModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
+        "subTitle": subTitle,
         "cost": cost,
         "description": description,
         "tags": tags,

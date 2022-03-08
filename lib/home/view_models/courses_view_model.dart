@@ -39,15 +39,17 @@ class CoursesViewModel extends ChangeNotifier {
 
   bool isTagSelected(String tag) => tag.trim() == _selectedTag?.trim();
 
-  List<CourseModel> get courses =>
-      _courses
-          ?.where((element) =>
-              element.title
-                  .toLowerCase()
-                  .contains(_search?.toLowerCase() ?? '') &&
-              element.tags.contains(_selectedTag ?? ''))
-          .toList() ??
-      [];
+  List<CourseModel> get courses {
+    _courses?.sort((a, b) => a.title.compareTo(b.title));
+    return _courses
+            ?.where((element) =>
+                element.title
+                    .toLowerCase()
+                    .contains(_search?.toLowerCase() ?? '') &&
+                element.tags.contains(_selectedTag ?? ''))
+            .toList() ??
+        [];
+  }
 
   List<String> getTags() {
     Set<String> tags = {};

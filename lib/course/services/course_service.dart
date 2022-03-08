@@ -1,9 +1,7 @@
 import 'dart:developer';
 
 import 'package:scs_latakia_app/course/models/course_details_model.dart';
-import 'package:scs_latakia_app/course/models/user_course_info_model.dart';
 import 'package:scs_latakia_app/course/models/user_course_response_model.dart';
-import 'package:scs_latakia_app/course/models/user_session_info_model.dart';
 import 'package:scs_latakia_app/course/models/user_session_response_model.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:http/http.dart' as http;

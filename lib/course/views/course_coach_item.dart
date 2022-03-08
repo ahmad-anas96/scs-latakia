@@ -33,7 +33,7 @@ class CourseCoachWidget extends StatelessWidget {
                   "${model.bio}",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1
+                      .bodyText2
                       ?.copyWith(height: 1.3),
                 ),
               ],

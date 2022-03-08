@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
@@ -16,7 +14,7 @@ class CourseSessionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? myId = AuthProvider.loginData?.user.id;
-    bool amIStudent = false;
+    bool coachOrMentor = false;
 
     CourseDetailsProvider? courseDetailsProvider =
         Provider.of<CourseDetailsProvider?>(context);
@@ -24,11 +22,13 @@ class CourseSessionWidget extends StatelessWidget {
         courseDetailsProvider?.courseDetailsResponseModel?.data.users ?? [];
 
     for (var user in _users) {
-      if (user.id == myId && user.userCourse.role == "student") {
-        amIStudent = true;
+      if (user.id == myId &&
+          (user.userCourse.role == "admin" ||
+              user.userCourse.role == "coach")) {
+        coachOrMentor = true;
         break;
       } else {
-        amIStudent = false;
+        coachOrMentor = false;
       }
     }
 
@@ -55,7 +55,7 @@ class CourseSessionWidget extends StatelessWidget {
               ],
             ),
           ),
-          if (!amIStudent)
+          if (coachOrMentor)
             IconButton(
               onPressed: () {
                 showModalBottomSheet(

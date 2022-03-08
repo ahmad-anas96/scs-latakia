@@ -1,6 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/models/user_model.dart';
 import 'package:scs_latakia_app/course/models/session_model.dart';
+import 'package:scs_latakia_app/course/models/user_course_details.dart';
 import 'package:scs_latakia_app/course/models/user_session_info_model.dart';
+import 'package:scs_latakia_app/course/services/course_service.dart';
+import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
+import 'package:scs_latakia_app/utils/loading.dart';
 
 class SessionDetailsModel extends SessionModel {
   SessionDetailsModel(
@@ -30,6 +36,44 @@ class SessionDetailsModel extends SessionModel {
   Map<String, dynamic> toJson() => {
         "Users": List<dynamic>.from(users.map((x) => x.toJson())),
       }..addAll(super.toJson());
+
+  void registerInSession(BuildContext context, UserCourseModel user) {
+    showDialog(
+      context: context,
+      builder: (_) => Loading(
+        action: () async {
+          var info = await CourseService.registerInSession(
+            user.id,
+            id,
+          );
+          if (info != null) {
+            CourseDetailsProvider? courseDetailsProvider =
+                Provider.of<CourseDetailsProvider?>(context, listen: false);
+            int i = courseDetailsProvider
+                    ?.courseDetailsResponseModel?.data.sessions
+                    .indexWhere((element) => element.id == id) ??
+                -1;
+
+            courseDetailsProvider
+                ?.courseDetailsResponseModel?.data.sessions[i].users
+                .add(
+              UserSessionModel(
+                user.id,
+                user.email,
+                user.role,
+                user.name,
+                user.imagePath,
+                user.mobile,
+                info.data,
+              ),
+            );
+            courseDetailsProvider?.notify();
+          }
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
 }
 
 class UserSessionModel extends UserModel {

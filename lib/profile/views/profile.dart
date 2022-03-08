@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:scs_latakia_app/auth/models/user_model.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
-import 'package:scs_latakia_app/main.dart';
 import 'package:scs_latakia_app/profile/views/edit_bottom_sheet.dart';
+import 'package:scs_latakia_app/profile/views/my_qr_code.dart';
 import 'package:scs_latakia_app/profile/views/password_bottom_sheet.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
@@ -67,39 +66,48 @@ class ProfilePageWidget extends StatelessWidget {
                     ],
                   ),
                   Expanded(child: Container()),
-                  Visibility(
-                    visible: false, // TODO
-                    child: SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: imageWithLoader(_user.imagePath, null),
-                    ),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: imageWithLoader(_user.imagePath, null),
                   ),
                 ],
               ),
               const Divider(),
-              Text(
-                "Email",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14.0,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Email",
+                            style: Theme.of(context).textTheme.bodyText1),
+                        Text(
+                          _user.email,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      ],
                     ),
-              ),
-              Text(
-                _user.email,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    ?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) => const QrCodeWidget(),
+                      );
+                    },
+                    icon: Icon(Icons.qr_code_rounded,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                ],
               ),
               const Divider(),
-              Text(
-                "Mobile",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14.0,
-                    ),
-              ),
+              Text("Mobile", style: Theme.of(context).textTheme.bodyText1),
               Text(
                 _user.mobile,
                 style: Theme.of(context)

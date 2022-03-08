@@ -4,7 +4,8 @@ import 'package:scs_latakia_app/home/views/courses_list_view.dart';
 import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 import 'package:scs_latakia_app/home/views/tags_list_view.dart';
 import 'package:scs_latakia_app/more/views/more.dart';
-import 'package:scs_latakia_app/my_courses/views/my_courses.dart';
+import 'package:scs_latakia_app/my_courses/view_models/my_courses_view_model.dart';
+import 'package:scs_latakia_app/my_courses/views/my_courses_list_view.dart';
 import 'package:scs_latakia_app/profile/views/profile.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _pages = const <Widget>[
     CoursesListView(),
     ProfilePageWidget(),
-    MyCoursesPageWidget(),
+    MyCoursesListView(),
     MorePageWidget(),
   ];
 
@@ -44,6 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     CoursesViewModel? coursesViewModel =
         Provider.of<CoursesViewModel?>(context);
+
+    MyCoursesViewModel? myCoursesViewModel =
+        Provider.of<MyCoursesViewModel?>(context);
 
     return WillPopScope(
       onWillPop: () async {
@@ -75,7 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
           length: 2,
           child: RefreshIndicator(
             color: Theme.of(context).colorScheme.primaryVariant,
-            onRefresh: () async => await coursesViewModel?.reload(),
+            onRefresh: () async {
+              await coursesViewModel?.reload();
+              await myCoursesViewModel?.reload();
+            },
             child: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {

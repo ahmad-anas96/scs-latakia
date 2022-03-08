@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
+import 'package:scs_latakia_app/course/views/course_details.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/models/course_model.dart';
 
@@ -23,7 +26,18 @@ class CourseViewList extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            var _provider =
+                Provider.of<CourseDetailsProvider?>(context, listen: false);
+            _provider?.course = model;
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const CourseDetailsScreen(),
+              ),
+            );
+          },
           borderRadius: BorderRadius.circular(MAIN_RADIUS),
           child: Row(
             children: [
@@ -63,32 +77,12 @@ class CourseViewList extends StatelessWidget {
                       "${model?.title}",
                       style: Theme.of(context).textTheme.headline1,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondaryVariant,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(MAIN_RADIUS),
-                        ),
-                      ),
-                      margin: const EdgeInsets.only(bottom: MAIN_MARGIN / 4),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      child: Text(
-                        "${model?.tags}",
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                              color: Colors.white,
-                              fontSize: 15,
-                              height: 1.3,
-                            ),
-                      ),
-                    ),
                     Text(
-                      "${model?.description}",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      "${model?.subTitle}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.copyWith(color: Colors.grey.shade600),
                     ),
                   ],
                 ),

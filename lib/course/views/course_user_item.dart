@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/course/models/user_course_details.dart';
@@ -8,7 +6,6 @@ import 'package:scs_latakia_app/course/services/course_service.dart';
 import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
-import 'package:scs_latakia_app/utils/snack.dart';
 
 class CourseUserWidget extends StatelessWidget {
   final UserCourseModel userCourseModel;
@@ -46,7 +43,7 @@ class CourseUserWidget extends StatelessWidget {
                   userCourseModel.email,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1
+                      .bodyText2
                       ?.copyWith(height: 1.3),
                 ),
               ],
@@ -56,43 +53,7 @@ class CourseUserWidget extends StatelessWidget {
             value: userSessionModel != null,
             onChanged: (value) {
               if (value ?? false) {
-                showDialog(
-                  context: context,
-                  builder: (_) => Loading(
-                    action: () async {
-                      var info = await CourseService.registerInSession(
-                        userCourseModel.id,
-                        sessionDetails.id,
-                      );
-                      if (info != null) {
-                        CourseDetailsProvider? courseDetailsProvider =
-                            Provider.of<CourseDetailsProvider?>(context,
-                                listen: false);
-                        int i = courseDetailsProvider
-                                ?.courseDetailsResponseModel?.data.sessions
-                                .indexWhere((element) =>
-                                    element.id == sessionDetails.id) ??
-                            -1;
-
-                        courseDetailsProvider
-                            ?.courseDetailsResponseModel?.data.sessions[i].users
-                            .add(
-                          UserSessionModel(
-                            userCourseModel.id,
-                            userCourseModel.email,
-                            userCourseModel.role,
-                            userCourseModel.name,
-                            userCourseModel.imagePath,
-                            userCourseModel.mobile,
-                            info.data,
-                          ),
-                        );
-                        courseDetailsProvider?.notify();
-                      }
-                      Navigator.pop(context);
-                    },
-                  ),
-                );
+                sessionDetails.registerInSession(context, userCourseModel);
               }
             },
           ),

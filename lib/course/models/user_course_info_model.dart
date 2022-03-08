@@ -4,6 +4,7 @@ class UserCourseInfoModel {
   UserCourseInfoModel({
     required this.id,
     this.couponCode,
+    this.certificate,
     required this.role,
     required this.status,
     required this.courseId,
@@ -12,6 +13,7 @@ class UserCourseInfoModel {
 
   String id;
   String? couponCode;
+  String? certificate;
   String role;
   String status;
   String courseId;
@@ -26,6 +28,7 @@ class UserCourseInfoModel {
       UserCourseInfoModel(
         id: json["id"],
         couponCode: json["couponCode"],
+        certificate: json["certificate"],
         role: json["role"],
         status: json["status"],
         courseId: json["CourseId"],
@@ -35,6 +38,7 @@ class UserCourseInfoModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "couponCode": couponCode,
+        "certificate": certificate,
         "role": role,
         "status": status,
         "courseId": courseId,

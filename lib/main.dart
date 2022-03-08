@@ -4,14 +4,18 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
+import 'package:scs_latakia_app/my_courses/view_models/my_courses_view_model.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 import 'package:scs_latakia_app/l10n/l10n.dart';
 import 'package:scs_latakia_app/splash/splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scs_latakia_app/utils/locale_provider.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize();
   runApp(const MyApp());
 }
 
@@ -50,6 +54,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => CoursesViewModel()),
+        ChangeNotifierProvider(create: (_) => MyCoursesViewModel()),
         ChangeNotifierProvider(create: (_) => CourseDetailsProvider())
       ],
       builder: (context, child) {
@@ -119,7 +124,6 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            
           ),
           initialRoute: '/',
           routes: {
