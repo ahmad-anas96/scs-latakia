@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 import 'package:scs_latakia_app/home/views/course_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CoursesListView extends StatelessWidget {
   const CoursesListView({Key? key}) : super(key: key);
@@ -24,8 +25,14 @@ class CoursesListView extends StatelessWidget {
               ),
             )
           : (coursesViewModel?.courses.isEmpty ?? true)
-              ? const SizedBox(
-                  height: 200, child: Center(child: Text("No results!")))
+              ? SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: Text(
+                      "${AppLocalizations.of(context)?.noResults}",
+                    ),
+                  ),
+                )
               : StaggeredGrid.count(
                   crossAxisCount: 2,
                   children: List.generate(

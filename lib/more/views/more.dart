@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MorePageWidget extends StatelessWidget {
   const MorePageWidget({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class MorePageWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Contact",
+                "${AppLocalizations.of(context)?.contact}",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 16.0,
@@ -38,7 +39,7 @@ class MorePageWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Mobile",
+                          "${AppLocalizations.of(context)?.mobile}",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Text(
@@ -71,7 +72,7 @@ class MorePageWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Phone",
+                          "${AppLocalizations.of(context)?.phone}",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Text(
@@ -104,7 +105,7 @@ class MorePageWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Email",
+                          "${AppLocalizations.of(context)?.email}",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Text(
@@ -137,7 +138,7 @@ class MorePageWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Facebook",
+                          "${AppLocalizations.of(context)?.facebook}",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Text(
@@ -170,11 +171,11 @@ class MorePageWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Location",
+                          "${AppLocalizations.of(context)?.address}",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         Text(
-                          "Latakia, West Corniche, next of museum",
+                          "${AppLocalizations.of(context)?.addressBody}",
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2

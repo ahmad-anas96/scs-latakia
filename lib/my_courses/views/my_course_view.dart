@@ -75,14 +75,32 @@ class CourseViewList extends StatelessWidget {
                   children: [
                     Text(
                       "${model?.title}",
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    Text(
-                      "${model?.subTitle}",
                       style: Theme.of(context)
                           .textTheme
-                          .headline4
-                          ?.copyWith(color: Colors.grey.shade600),
+                          .headline1
+                          ?.copyWith(height: 1.3, fontWeight: FontWeight.w600),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(MAIN_RADIUS),
+                        ),
+                      ),
+                      margin: const EdgeInsets.only(top: MAIN_MARGIN / 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
+                      child: Text(
+                        "${model?.subTitle}",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                     ),
                   ],
                 ),

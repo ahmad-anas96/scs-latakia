@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/course/models/user_course_details.dart';
 import 'package:scs_latakia_app/course/models/user_session_details.dart';
-import 'package:scs_latakia_app/course/services/course_service.dart';
-import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 

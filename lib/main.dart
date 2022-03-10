@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
@@ -11,7 +12,6 @@ import 'package:scs_latakia_app/l10n/l10n.dart';
 import 'package:scs_latakia_app/splash/splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scs_latakia_app/utils/locale_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

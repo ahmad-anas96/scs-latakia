@@ -24,7 +24,6 @@ class CourseDetailsButton extends StatelessWidget {
               color: Colors.white,
               fontSize: 20,
               height: 1.3,
-              // fontWeight: _isSelected ? FontWeight.bold : FontWeight.normal
             ),
       ),
       selected: _isSelected,

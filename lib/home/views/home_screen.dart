@@ -8,6 +8,7 @@ import 'package:scs_latakia_app/my_courses/view_models/my_courses_view_model.dar
 import 'package:scs_latakia_app/my_courses/views/my_courses_list_view.dart';
 import 'package:scs_latakia_app/profile/views/profile.dart';
 import 'package:scs_latakia_app/utils/const.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,18 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
     MorePageWidget(),
   ];
 
-  String get title {
+  String? get title {
     switch (_currentIndex) {
       case 0:
-        return "Syrian Computer Society - Latakia";
+        return "${AppLocalizations.of(context)?.titleLabel}";
       case 1:
-        return "Profile";
+        return "${AppLocalizations.of(context)?.profile}";
       case 2:
-        return "My courses";
+        return "${AppLocalizations.of(context)?.myCourses}";
       case 3:
-        return "More";
+        return "${AppLocalizations.of(context)?.more}";
       default:
-        return "";
+        return null;
     }
   }
 
@@ -67,12 +68,19 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (value) => setState(() {
             _currentIndex = value;
           }),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.school_rounded), label: "My Courses"),
-            BottomNavigationBarItem(icon: Icon(Icons.more_vert), label: "More"),
+                icon: const Icon(Icons.home),
+                label: "${AppLocalizations.of(context)?.home}"),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.person),
+                label: "${AppLocalizations.of(context)?.profile}"),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.school_rounded),
+                label: "${AppLocalizations.of(context)?.myCourses}"),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.more_vert),
+                label: "${AppLocalizations.of(context)?.more}"),
           ],
         ),
         body: DefaultTabController(
@@ -105,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? 1.0
                                 : 0.0,
                             child: Text(
-                              title,
+                              title ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2
@@ -168,7 +176,7 @@ class _SliverFilterBarDelegate extends SliverPersistentHeaderDelegate {
               onChanged: (value) => coursesViewModel?.search = value,
               textInputAction: TextInputAction.search,
               decoration: INPUT_DECORATION.copyWith(
-                hintText: 'Search',
+                hintText: "${AppLocalizations.of(context)?.search}",
                 prefixIcon: const Icon(Icons.search_rounded),
               ),
             ),

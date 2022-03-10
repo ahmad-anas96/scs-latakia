@@ -7,6 +7,7 @@ import 'package:scs_latakia_app/auth/views/auth_screen.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/views/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 onFinished: () => _checkAuthAndPages(),
                 animatedTexts: [
                   TyperAnimatedText(
-                    "Syrian Computer Society\nLatakia",
+                    "${AppLocalizations.of(context)?.title}",
                     textAlign: TextAlign.center,
                     textStyle: TextStyle(
                       fontSize: 30.0,

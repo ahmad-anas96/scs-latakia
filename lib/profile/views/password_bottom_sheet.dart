@@ -4,6 +4,7 @@ import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PasswordBottomSheet extends StatefulWidget {
   const PasswordBottomSheet({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Change Password",
+            "${AppLocalizations.of(context)?.changePassword}",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16.0,
@@ -57,13 +58,13 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
                   controller: _oldController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Password must be 8 char at least";
+                      return "${AppLocalizations.of(context)?.passwordError}";
                     }
                     return null;
                   },
                   keyboardType: TextInputType.visiblePassword,
                   decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'Current Password',
+                    hintText: "${AppLocalizations.of(context)?.currentPassword}",
                     prefixIcon: const Icon(Icons.security_rounded),
                   ),
                 ),
@@ -73,13 +74,13 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
                   controller: _newController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Password must be 8 char at least";
+                      return "${AppLocalizations.of(context)?.passwordError}";
                     }
                     return null;
                   },
                   keyboardType: TextInputType.visiblePassword,
                   decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'New Password',
+                    hintText: "${AppLocalizations.of(context)?.newPassword}",
                     prefixIcon: const Icon(Icons.security_rounded),
                   ),
                 ),
@@ -105,13 +106,13 @@ class _PasswordBottomSheetState extends State<PasswordBottomSheet> {
                     Navigator.pop(context);
                     if (info) {
                       Navigator.pop(context);
-                      showSnackbar(context, "Password changed successfully");
+                      showSnackbar(context, "${AppLocalizations.of(context)?.passwordChanged}");
                     }
                   },
                 ),
               );
             },
-            child: const Text("Save"),
+            child: Text("${AppLocalizations.of(context)?.save}"),
           ),
         ],
       ),

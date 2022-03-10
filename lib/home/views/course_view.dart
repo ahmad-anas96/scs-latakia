@@ -46,14 +46,39 @@ class CourseView extends StatelessWidget {
                 height: 110,
                 child: imageWithLoader(model.imagePath, null),
               ),
+              Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(MAIN_RADIUS),
+                  ),
+                ),
+                margin: const EdgeInsets.only(top: MAIN_MARGIN / 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
+                child: Text(
+                  "${model.subTitle}",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                ),
+              ),
               const Divider(),
               Text(
                 model.title,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    ?.copyWith(height: 1.3, fontWeight: FontWeight.w600),
               ),
               Text(
                 model.description,
-                maxLines: 2,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText2,
               ),
@@ -74,6 +99,7 @@ class CourseView extends StatelessWidget {
                     ),
                     child: Text(
                       model.tags.split(',')[index].trim(),
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: Colors.white,
                             fontSize: 15,

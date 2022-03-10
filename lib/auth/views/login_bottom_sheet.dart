@@ -8,6 +8,7 @@ import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
 import 'package:scs_latakia_app/utils/validators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginBottomSheet extends StatefulWidget {
   const LoginBottomSheet({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Welcome back",
+            "${AppLocalizations.of(context)?.welcomeBack}",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 25.0,
@@ -56,7 +57,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 TextFormField(
                   validator: (value) {
                     if (value == null || !isEmailValid(value)) {
-                      return "enter a valid email please";
+                      return "${AppLocalizations.of(context)?.emailError}";
                     }
                     return null;
                   },
@@ -64,7 +65,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'Email',
+                    hintText: "${AppLocalizations.of(context)?.email}",
                     prefixIcon: const Icon(Icons.alternate_email_outlined),
                   ),
                 ),
@@ -74,13 +75,13 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   controller: _passwordController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return "Password must be 8 char at least";
+                      return "${AppLocalizations.of(context)?.passwordError}";
                     }
                     return null;
                   },
                   keyboardType: TextInputType.visiblePassword,
                   decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'Password',
+                    hintText: "${AppLocalizations.of(context)?.password}",
                     prefixIcon: const Icon(Icons.security_rounded),
                   ),
                 ),
@@ -127,7 +128,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                       ),
                     );
                   },
-                  child: const Text("Login"),
+                  child: Text("${AppLocalizations.of(context)?.login}"),
                 ),
               ],
             ),

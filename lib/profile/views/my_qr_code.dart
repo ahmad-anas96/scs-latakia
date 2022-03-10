@@ -3,6 +3,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:scs_latakia_app/auth/models/user_model.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 import 'package:scs_latakia_app/utils/const.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QrCodeWidget extends StatelessWidget {
   const QrCodeWidget({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class QrCodeWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Your QR Code",
+            "${AppLocalizations.of(context)?.yourQr}",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16.0,

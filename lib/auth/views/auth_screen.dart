@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scs_latakia_app/auth/views/login_bottom_sheet.dart';
 import 'package:scs_latakia_app/auth/views/register_bottom_sheet.dart';
 import 'package:scs_latakia_app/utils/const.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class AuthScreen extends StatelessWidget {
                         return const RegisterBottomSheet();
                       }),
                   child: Text(
-                    "New User",
+                    "${AppLocalizations.of(context)?.newUser}",
                     style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),
@@ -58,7 +59,7 @@ class AuthScreen extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       builder: (context) => const LoginBottomSheet()),
-                  child: const Text("Login"),
+                  child: Text("${AppLocalizations.of(context)?.login}"),
                 ),
               ],
             ),

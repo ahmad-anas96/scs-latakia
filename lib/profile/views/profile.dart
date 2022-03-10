@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:scs_latakia_app/auth/models/user_model.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 import 'package:scs_latakia_app/profile/views/edit_bottom_sheet.dart';
@@ -8,8 +9,8 @@ import 'package:scs_latakia_app/profile/views/my_qr_code.dart';
 import 'package:scs_latakia_app/profile/views/password_bottom_sheet.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
-import 'package:scs_latakia_app/utils/snack.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePageWidget extends StatelessWidget {
   const ProfilePageWidget({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class ProfilePageWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Personal Information",
+                        "${AppLocalizations.of(context)?.personalInfo}",
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 16.0,
@@ -53,7 +54,7 @@ class ProfilePageWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        "Full Name",
+                        "${AppLocalizations.of(context)?.name}",
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       Text(
@@ -81,8 +82,10 @@ class ProfilePageWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Email",
-                            style: Theme.of(context).textTheme.bodyText1),
+                        Text(
+                          "${AppLocalizations.of(context)?.email}",
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
                         Text(
                           _user.email,
                           style: Theme.of(context)
@@ -107,7 +110,10 @@ class ProfilePageWidget extends StatelessWidget {
                 ],
               ),
               const Divider(),
-              Text("Mobile", style: Theme.of(context).textTheme.bodyText1),
+              Text(
+                "${AppLocalizations.of(context)?.mobile}",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
               Text(
                 _user.mobile,
                 style: Theme.of(context)
@@ -130,7 +136,7 @@ class ProfilePageWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Bio",
+                      "${AppLocalizations.of(context)?.bio}",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 16.0,
@@ -146,7 +152,7 @@ class ProfilePageWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      _user.bio ?? 'no bio',
+                      _user.bio ?? '-',
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2
@@ -161,7 +167,7 @@ class ProfilePageWidget extends StatelessWidget {
                     try {
                       await launch("${_user.linkedin}");
                     } catch (e) {
-                      showSnackbar(context, "No Linkedin account");
+                      log("$e");
                     }
                   },
                   icon: Image.asset(
@@ -176,6 +182,7 @@ class ProfilePageWidget extends StatelessWidget {
         const SizedBox(height: MAIN_MARGIN / 2),
         Container(
           color: Colors.white,
+          padding: const EdgeInsets.all(MAIN_MARGIN / 2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,8 +201,9 @@ class ProfilePageWidget extends StatelessWidget {
                       ),
                     ),
                 icon: const Icon(Icons.edit_rounded),
-                label: const Text("Edit Informaion"),
+                label: Text("${AppLocalizations.of(context)?.editInfo}"),
               ),
+              const Divider(),
               TextButton.icon(
                 onPressed: () => showModalBottomSheet(
                   context: context,
@@ -208,7 +216,7 @@ class ProfilePageWidget extends StatelessWidget {
                       ),
                     ),
                 icon: const Icon(Icons.security_rounded),
-                label: const Text("Change Password"),
+                label: Text("${AppLocalizations.of(context)?.changePassword}"),
               ),
             ],
           ),
@@ -218,7 +226,7 @@ class ProfilePageWidget extends StatelessWidget {
           child: InkWell(
             onTap: () => _auth?.setLoginData(null),
             child: Padding(
-              padding: const EdgeInsets.all(MAIN_MARGIN / 2),
+              padding: const EdgeInsets.all(MAIN_MARGIN),
               child: Row(
                 children: [
                   const Icon(
@@ -228,7 +236,7 @@ class ProfilePageWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: MAIN_MARGIN / 2),
                   Text(
-                    "Logout",
+                    "${AppLocalizations.of(context)?.logout}",
                     style: Theme.of(context).textTheme.bodyText2?.copyWith(
                           color: Colors.grey,
                           height: 1.3,

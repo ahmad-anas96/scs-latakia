@@ -7,6 +7,7 @@ import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
 import 'package:scs_latakia_app/utils/validators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfileBottomSheet extends StatefulWidget {
   const EditProfileBottomSheet({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Edit Information",
+            "${AppLocalizations.of(context)?.editInfo}",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16.0,
@@ -65,7 +66,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "your name please";
+                      return "${AppLocalizations.of(context)?.nameError}";
                     }
                     return null;
                   },
@@ -73,7 +74,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
                   decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'Name',
+                    hintText: "${AppLocalizations.of(context)?.name}",
                     prefixIcon: const Icon(Icons.person_rounded),
                   ),
                 ),
@@ -81,7 +82,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                 TextFormField(
                   validator: (value) {
                     if (value == null || !isPhoneValid(value)) {
-                      return "enter a valid phone number please";
+                      return "${AppLocalizations.of(context)?.phoneError}";
                     }
                     return null;
                   },
@@ -89,7 +90,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
                   decoration: INPUT_DECORATION.copyWith(
-                      hintText: 'Phone number',
+                      hintText: "${AppLocalizations.of(context)?.phoneNumber}",
                       prefixIcon: const Icon(Icons.phone_android_rounded)),
                 ),
                 const SizedBox(height: MAIN_MARGIN),
@@ -97,7 +98,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                   controller: _bioController,
                   maxLines: 3,
                   decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'Bio',
+                    hintText: "${AppLocalizations.of(context)?.bio}",
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: MAIN_MARGIN / 2,
                       vertical: MAIN_MARGIN / 4,
@@ -129,7 +130,8 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                     Navigator.pop(context);
                     if (info) {
                       Navigator.pop(context);
-                      showSnackbar(context, "Profile edited successfully");
+                      showSnackbar(context,
+                          "${AppLocalizations.of(context)?.profileEdited}");
                       AuthProvider.loginData?.user.name = body.name;
                       AuthProvider.loginData?.user.mobile = body.mobile;
                       AuthProvider.loginData?.user.bio = body.bio;
@@ -139,7 +141,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                 ),
               );
             },
-            child: const Text("Save"),
+            child: Text("${AppLocalizations.of(context)?.save}"),
           ),
         ],
       ),

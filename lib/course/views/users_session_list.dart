@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/course/models/user_course_details.dart';
@@ -10,6 +8,7 @@ import 'package:scs_latakia_app/profile/views/bottom_qrcode_sheet.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
 import 'package:scs_latakia_app/utils/validators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UsersSessionList extends StatelessWidget {
   final SessionDetailsModel sessionDetails;
@@ -116,7 +115,8 @@ class UsersSessionList extends StatelessWidget {
                     int i =
                         _allStudents.indexWhere((element) => element.id == qr);
                     if (i == -1) {
-                      showSnackbar(context, "Incorrect QR code");
+                      showSnackbar(
+                          context, "${AppLocalizations.of(context)?.qrError}");
                     } else {
                       UserCourseModel _user = _allStudents[i];
                       sessionDetails.registerInSession(context, _user);

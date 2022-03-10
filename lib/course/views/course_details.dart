@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/models/user_model.dart';
@@ -12,9 +9,10 @@ import 'package:scs_latakia_app/course/view_models/course_details_provider.dart'
 import 'package:scs_latakia_app/course/views/course_session_item.dart';
 import 'package:scs_latakia_app/course/views/course_coach_item.dart';
 import 'package:scs_latakia_app/utils/const.dart';
+import 'package:scs_latakia_app/utils/download_file.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseDetailsScreen extends StatefulWidget {
   const CourseDetailsScreen({Key? key}) : super(key: key);
@@ -64,7 +62,8 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       Navigator.pop(context);
 
                       if (info == null) {
-                        showSnackbar(context, "try again");
+                        showSnackbar(context,
+                            "${AppLocalizations.of(context)?.tryAgain}");
                         return;
                       }
                       UserModel user = AuthProvider.loginData!.user;
@@ -83,12 +82,12 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                           ?.courseDetailsResponseModel?.data.users
                           .add(userCourseModel);
                       courseDetailsProvider?.notify();
-                      showSnackbar(context,
-                          "enrolled successfully, our team will notify you as soon possible");
+                      showSnackbar(
+                          context, "${AppLocalizations.of(context)?.enrolled}");
                     },
                   ),
                 ),
-                child: const Text("Enroll"),
+                child: Text("${AppLocalizations.of(context)?.enroll}"),
               ),
             );
           }
@@ -150,7 +149,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .headline1
-                        ?.copyWith(fontSize: 25.0),
+                        ?.copyWith(fontSize: 25.0, fontWeight: FontWeight.w600),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -165,7 +164,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       vertical: 5,
                     ),
                     child: Text(
-                      "${NumberFormat("#,###").format(courseDetailsProvider?.course?.cost)} s.p.",
+                      "${NumberFormat("#,###").format(courseDetailsProvider?.course?.cost)} ${AppLocalizations.of(context)?.sp}",
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: Colors.white,
                             fontSize: 20,
@@ -180,7 +179,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
         ),
         const SizedBox(height: 25),
         Text(
-          "Detials:",
+          "${AppLocalizations.of(context)?.details}",
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontSize: 16.0,
@@ -197,6 +196,25 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
           "${courseDetailsProvider?.course?.description}",
           style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 16),
         ),
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(
+              Radius.circular(MAIN_RADIUS),
+            ),
+          ),
+          margin: const EdgeInsets.all(MAIN_MARGIN / 4),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 5,
+          ),
+          child: Text(
+            "${courseDetailsProvider?.course?.subTitle}",
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -209,10 +227,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     Radius.circular(MAIN_RADIUS),
                   ),
                 ),
-                margin: const EdgeInsets.only(
-                  right: MAIN_MARGIN / 4,
-                  top: MAIN_MARGIN / 2,
-                ),
+                margin: const EdgeInsets.only(right: MAIN_MARGIN / 4),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 5,
@@ -229,16 +244,10 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
           ),
         ),
         if (certificate != null)
-          Container(
-            margin: const EdgeInsets.only(top: MAIN_MARGIN),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                launch("$ROOT/uploads/$certificate");
-              },
-              icon: const Icon(Icons.download_rounded),
-              label: const Text("Download Certificate"),
-            ),
-          ),
+          DownloadCertificateWidget(
+            certificate: certificate,
+            course: courseDetailsProvider!.course!,
+          )
       ],
     );
   }
@@ -248,7 +257,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Coach",
+            "${AppLocalizations.of(context)?.coach}",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16.0,
@@ -287,7 +296,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Sessions",
+            "${AppLocalizations.of(context)?.sessions}",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16.0,
@@ -345,9 +354,12 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
               ),
             ),
             background: SizedBox(
-                height: 200,
-                child: imageWithLoader(
-                    courseDetailsProvider?.course?.coverPath, BoxFit.cover)),
+              height: 200,
+              child: imageWithLoader(
+                courseDetailsProvider?.course?.coverPath,
+                BoxFit.cover,
+              ),
+            ),
           );
         }),
       ),

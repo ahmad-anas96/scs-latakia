@@ -6,6 +6,7 @@ import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/utils/loading.dart';
 import 'package:scs_latakia_app/utils/snack.dart';
 import 'package:scs_latakia_app/utils/validators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterBottomSheet extends StatefulWidget {
   const RegisterBottomSheet({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
       ),
       children: [
         Text(
-          "New user",
+          "${AppLocalizations.of(context)?.newUser}",
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontSize: 25.0,
@@ -54,7 +55,7 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
               TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "your name please";
+                    return "${AppLocalizations.of(context)?.nameError}";
                   }
                   return null;
                 },
@@ -62,7 +63,7 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.name,
                 decoration: INPUT_DECORATION.copyWith(
-                  hintText: 'Name',
+                  hintText: "${AppLocalizations.of(context)?.name}",
                   prefixIcon: const Icon(Icons.person_rounded),
                 ),
               ),
@@ -70,7 +71,7 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
               TextFormField(
                 validator: (value) {
                   if (value == null || !isPhoneValid(value)) {
-                    return "enter a valid phone number please";
+                    return "${AppLocalizations.of(context)?.phoneError}";
                   }
                   return null;
                 },
@@ -78,14 +79,14 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.phone,
                 decoration: INPUT_DECORATION.copyWith(
-                    hintText: 'Phone number',
+                    hintText: "${AppLocalizations.of(context)?.phoneNumber}",
                     prefixIcon: const Icon(Icons.phone_android_rounded)),
               ),
               const SizedBox(height: MAIN_MARGIN),
               TextFormField(
                 validator: (value) {
                   if (value == null || !isEmailValid(value)) {
-                    return "enter a valid email please";
+                    return "${AppLocalizations.of(context)?.emailError}";
                   }
                   return null;
                 },
@@ -93,7 +94,7 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
                 decoration: INPUT_DECORATION.copyWith(
-                  hintText: 'Email',
+                  hintText: "${AppLocalizations.of(context)?.email}",
                   prefixIcon: const Icon(Icons.alternate_email_outlined),
                 ),
               ),
@@ -103,13 +104,13 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                 controller: _passwordController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return "Password must be 8 char at least";
+                    return "${AppLocalizations.of(context)?.passwordError}";
                   }
                   return null;
                 },
                 keyboardType: TextInputType.visiblePassword,
                 decoration: INPUT_DECORATION.copyWith(
-                  hintText: 'Password',
+                  hintText: "${AppLocalizations.of(context)?.password}",
                   prefixIcon: const Icon(Icons.security_rounded),
                 ),
               ),
@@ -135,15 +136,17 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                         Navigator.pop(context);
 
                         if (response == null) {
-                          showSnackbar(context, "try again");
+                          showSnackbar(context,
+                              "${AppLocalizations.of(context)?.tryAgain}");
                         } else {
                           showDialog(
                             context: context,
                             builder: (_) {
-                              return const AlertDialog(
-                                title: Text("Verify account"),
+                              return AlertDialog(
+                                title: Text(
+                                    "${AppLocalizations.of(context)?.verifyAccount}"),
                                 content: Text(
-                                    "An email sent to your email with verification link, please check your inbox to verify"),
+                                    "${AppLocalizations.of(context)?.verifyText}"),
                               );
                             },
                           );
@@ -152,7 +155,7 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                     ),
                   );
                 },
-                child: const Text("Register"),
+                child: Text("${AppLocalizations.of(context)?.register}"),
               ),
             ],
           ),

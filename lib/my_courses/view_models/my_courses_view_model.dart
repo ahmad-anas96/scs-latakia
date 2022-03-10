@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 import 'package:scs_latakia_app/home/models/course_model.dart';
@@ -30,7 +28,6 @@ class MyCoursesViewModel extends ChangeNotifier {
     } catch (e) {
       _loading = false;
     }
-    log("${_courses.length}");
     notifyListeners();
   }
 }
