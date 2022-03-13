@@ -36,7 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/images/scs-header.jpg'),
+          Image.asset(
+            'assets/images/scs-header.jpg',
+            height: 190.0,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
           Expanded(child: Container()),
           Container(
             padding: const EdgeInsets.all(MAIN_MARGIN),

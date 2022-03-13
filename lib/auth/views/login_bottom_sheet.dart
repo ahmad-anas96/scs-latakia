@@ -105,15 +105,17 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                           Navigator.pop(context);
 
                           if (response == null) {
-                            showSnackbar(context, "try again");
+                            showSnackbar(context,
+                                "${AppLocalizations.of(context)?.tryAgain}");
                           } else if (response.data.user.isActive == false) {
                             showDialog(
                               context: context,
                               builder: (_) {
-                                return const AlertDialog(
-                                  title: Text("Verify account"),
+                                return AlertDialog(
+                                  title: Text(
+                                      "${AppLocalizations.of(context)?.verifyAccount}"),
                                   content: Text(
-                                      "An email sent to your email with verification link, please check your inbox to verify"),
+                                      "${AppLocalizations.of(context)?.verifyText}"),
                                 );
                               },
                             );

@@ -71,6 +71,7 @@ class CourseView extends StatelessWidget {
               const Divider(),
               Text(
                 model.title,
+                textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
                     .headline1

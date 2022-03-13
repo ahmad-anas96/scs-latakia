@@ -136,7 +136,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
               height: 100,
               width: 100,
               child: imageWithLoader(
-                  courseDetailsProvider?.course?.imagePath, null),
+                courseDetailsProvider?.course?.imagePath,
+                null,
+              ),
             ),
             const VerticalDivider(),
             Expanded(
@@ -164,7 +166,10 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       vertical: 5,
                     ),
                     child: Text(
-                      "${NumberFormat("#,###").format(courseDetailsProvider?.course?.cost)} ${AppLocalizations.of(context)?.sp}",
+                      courseDetailsProvider?.course?.cost == null ||
+                              courseDetailsProvider?.course?.cost == 0.0
+                          ? "${AppLocalizations.of(context)?.free}"
+                          : "${NumberFormat("#,###").format(courseDetailsProvider?.course?.cost)} ${AppLocalizations.of(context)?.sp}",
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: Colors.white,
                             fontSize: 20,

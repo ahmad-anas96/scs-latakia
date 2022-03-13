@@ -20,8 +20,7 @@ class ProfilePageWidget extends StatelessWidget {
     AuthProvider? _auth = Provider.of<AuthProvider?>(context);
     UserModel _user = AuthProvider.loginData!.user;
 
-    return ListView(
-      padding: const EdgeInsets.all(0.0),
+    return Column(
       children: [
         Container(
           color: Colors.white,

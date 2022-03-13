@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
 import 'package:scs_latakia_app/my_courses/view_models/my_courses_view_model.dart';
+import 'package:scs_latakia_app/updates/view_models/update_view_model.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/view_models/courses_view_model.dart';
 import 'package:scs_latakia_app/l10n/l10n.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => UpdateViewModel()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => CoursesViewModel()),
         ChangeNotifierProvider(create: (_) => MyCoursesViewModel()),

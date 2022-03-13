@@ -14,7 +14,7 @@ class CoursesListView extends StatelessWidget {
     CoursesViewModel? coursesViewModel =
         Provider.of<CoursesViewModel?>(context);
 
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(MAIN_MARGIN / 4),
       child: coursesViewModel?.loading == true
           ? SizedBox(

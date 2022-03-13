@@ -4,6 +4,7 @@ import 'package:scs_latakia_app/course/view_models/course_details_provider.dart'
 import 'package:scs_latakia_app/course/views/course_details.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:scs_latakia_app/home/models/course_model.dart';
+import 'package:scs_latakia_app/utils/loading.dart';
 
 class CourseViewList extends StatelessWidget {
   final CourseModel? model;
@@ -41,30 +42,12 @@ class CourseViewList extends StatelessWidget {
           borderRadius: BorderRadius.circular(MAIN_RADIUS),
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(MAIN_RADIUS),
-                child: Image.network(
-                  "$ROOT_UPLOADS/${model?.imagePath}",
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    return loadingProgress == null
-                        ? child
-                        : const SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: Center(
-                              child: SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.5,
-                                ),
-                              ),
-                            ),
-                          );
-                  },
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: imageWithLoader(
+                  model?.imagePath,
+                  null,
                 ),
               ),
               const VerticalDivider(),

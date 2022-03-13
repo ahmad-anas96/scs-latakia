@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 
 const MAIN_MARGIN = 25.0;
@@ -12,6 +13,11 @@ const ROOT_UPLOADS = "$ROOT/uploads";
 Map<String, String>? getHeaders() => {
       'Authorization': 'Bearer ${AuthProvider.loginData?.accessToken}',
     };
+
+Future<String> getVersionCode() async {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.buildNumber;
+}
 
 const INPUT_DECORATION = InputDecoration(
   filled: true,

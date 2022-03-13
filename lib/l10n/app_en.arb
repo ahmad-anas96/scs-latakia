@@ -48,5 +48,9 @@
   "personalInfo": "Personal Information",
   "logout": "Logout",
   "bio": "Bio",
-  "loading": "Loading..."
+  "free": "Free",
+  "loading": "Loading...",
+  "update": "Update",
+  "directDownload": "Direct Download",
+  "updateText": "You have to update SCS Latakia app"
 }
