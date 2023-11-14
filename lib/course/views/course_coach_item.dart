@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:scs_latakia_app/course/models/user_course_details.dart';
 import 'package:scs_latakia_app/utils/const.dart';

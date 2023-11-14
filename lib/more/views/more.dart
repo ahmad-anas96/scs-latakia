@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:scs_latakia_app/utils/const.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,7 +60,7 @@ class MorePageWidget extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.phone_android_rounded,
-                      color: Theme.of(context).colorScheme.primaryVariant,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
@@ -91,7 +93,7 @@ class MorePageWidget extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.phone_rounded,
-                      color: Theme.of(context).colorScheme.primaryVariant,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
@@ -124,7 +126,7 @@ class MorePageWidget extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.mail_rounded,
-                      color: Theme.of(context).colorScheme.primaryVariant,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
@@ -157,7 +159,7 @@ class MorePageWidget extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.facebook_rounded,
-                      color: Theme.of(context).colorScheme.primaryVariant,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
@@ -190,7 +192,7 @@ class MorePageWidget extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.map_rounded,
-                      color: Theme.of(context).colorScheme.primaryVariant,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],
@@ -281,7 +283,7 @@ class MorePageWidget extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.link_rounded,
-                      color: Theme.of(context).colorScheme.primaryVariant,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

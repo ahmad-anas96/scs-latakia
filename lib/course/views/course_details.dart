@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -155,7 +157,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondaryVariant,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(MAIN_RADIUS),
                       ),
@@ -227,7 +229,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
               tags.length,
               (index) => Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondaryVariant,
+                  color: Theme.of(context).colorScheme.secondary,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(MAIN_RADIUS),
                   ),

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/home/views/courses_list_view.dart';
@@ -103,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
-          selectedItemColor: Theme.of(context).colorScheme.primaryVariant,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
           unselectedItemColor: Colors.grey,
           onTap: (value) => setState(() {
             _currentIndex = value;
@@ -168,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ];
             },
             body: RefreshIndicator(
-              color: Theme.of(context).colorScheme.primaryVariant,
+              color: Theme.of(context).colorScheme.primary,
               onRefresh: () async {
                 await coursesViewModel?.reload();
                 await myCoursesViewModel?.reload();

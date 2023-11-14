@@ -6,7 +6,7 @@ import 'package:scs_latakia_app/auth/view_models/auth_provider.dart';
 
 const MAIN_MARGIN = 25.0;
 const MAIN_RADIUS = 10.0;
-const ROOT = "https://scs-latakia.atconcept.tech";
+const ROOT = "http://localhost:3000";
 const ROOT_API = "$ROOT/api";
 const ROOT_UPLOADS = "$ROOT/uploads";
 

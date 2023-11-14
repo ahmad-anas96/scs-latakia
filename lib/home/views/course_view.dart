@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/course/view_models/course_details_provider.dart';
@@ -88,7 +90,7 @@ class CourseView extends StatelessWidget {
                   model.tags.split(',').length,
                   (index) => Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondaryVariant,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(MAIN_RADIUS),
                       ),

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scs_latakia_app/utils/const.dart';
@@ -27,7 +29,7 @@ class CourseDetailsButton extends StatelessWidget {
             ),
       ),
       selected: _isSelected,
-      selectedColor: Theme.of(context).colorScheme.secondaryVariant,
+      selectedColor: Theme.of(context).colorScheme.secondary,
       backgroundColor: Colors.grey,
       onSelected: (value) => coursesViewModel?.selectedTag = value ? tag : null,
       elevation: 1,
